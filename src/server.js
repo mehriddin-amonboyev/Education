@@ -39,13 +39,13 @@ mongoDB()
     .catch((err) => console.log("Xatolik >>>>>>>>\n", err.message));
 
 // PAGE ROUTES
-app.use("/education/", pageRoutes)
+app.use("/api/v1/", pageRoutes);
 
 //Test routes
 app.use("/test", testRoutes);
 
 // Api ROUTES
-app.use("/", routes)
+app.use("/", routes);
 
 //Api All
 app.all("*", (req, res) => {

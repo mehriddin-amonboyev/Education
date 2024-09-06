@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 const pageRoutes = Router();
 
-pageRoutes.get("/", (req, res) => {
+pageRoutes.get("/education", (req, res) => {
     res.render("dashboard");
 })
 
