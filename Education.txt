@@ -1,0 +1,11 @@
+Education masofaviy ta'lim
+10 minut 20 min 30 min vaqtda bajariladigan masalalar bo'ladi reyting ko'tarish uchun
+masala qancha tez bajarilsa shuncha yaxshi ortib qolgan vaqt bazaga tushib qoladi..
+
+masala {
+    id: 
+    mavzusi:
+    qiyinchilig: oson, o'rta, qiyin,
+    matn: 
+    ball:
+}

@@ -9,7 +9,7 @@ class ApiFeature {
 
     filter() {
         let queryStr = { ...this.#_queryString };
-        
+
         //Filtering
         const excluddedQueries = ["limit", "page", "sort", "fields"];
 

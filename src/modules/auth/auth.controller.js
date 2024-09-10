@@ -60,9 +60,6 @@ class AuthController {
         case "admin":
           res.redirect("/admin");
           break;
-        // case "super-admin":
-          // res.redirect("/super-admin");
-          // break;
         default:
           res.send("Not Faund:", { message: "User page not found" });
       }
