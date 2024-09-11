@@ -1,16 +1,16 @@
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import User from "../user/user.model.js";
-import { NotFoundException } from "../../exceptions/not-found.exception.js";
-import { signToken } from "../../helper/jwt.helper.js";
-import { sendMail } from "../../utils/send-email.utils.js";
-import passwordResetConfig from "../../config/password-reset.config.js";
-import crypto from "crypto";
-import bcryptConfig from "../../config/bcrypt.config.js";
 import appConfig from "../../config/app.config.js";
-import { ConflictException } from "../../exceptions/conflic.exception.js";
+import bcryptConfig from "../../config/bcrypt.config.js";
 import generateOTP from "../../utils/generate-otp.utils.js";
+import passwordResetConfig from "../../config/password-reset.config.js";
 import { Otp } from "./otp.model.js";
+import { sendMail } from "../../utils/send-email.utils.js";
+import { signToken } from "../../helper/jwt.helper.js";
+import { NotFoundException } from "../../exception/not-found.exception.js";
+import { ConflictException } from "../../exception/conflic.exception.js";
 
 class AuthController {
   #_userModel;
@@ -85,11 +85,9 @@ class AuthController {
       // SEND CODE VIA EMAIL
       await sendMail({
         to: email,
-        subject: "Verification code for LMS",
-        html: `
-        <h2>Sizning verifikatsiya kodingiz:</h2>
-        <input type="text" disabled value='${otpCode}'/>
-        `,
+        subject: "Verification code for Education",
+        html: `<h2>Sizning verifikatsiya kodingiz:</h2>
+        <input type="text" disabled value='${otpCode}'/>`,
       });
 
       res.send({

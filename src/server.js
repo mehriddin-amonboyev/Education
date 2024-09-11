@@ -25,7 +25,6 @@ app.use("/public", express.static(path.join(process.cwd(), "public")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded.apply({ extends: true }));
 
-
 //CONNECTING TO MONGODB DATABASE 
 mongoDB()
     .then(() => console.log("MongoDB connected"))

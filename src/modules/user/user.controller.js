@@ -2,9 +2,9 @@ import { isValidObjectId } from "mongoose";
 import bcrypt from "bcrypt";
 import User from "./user.model.js";
 import ApiFeature from "../../utils/api-feature.utils.js";
-import { BadRequestException } from "../../exceptions/bad-request.exception.js";
+import { BadRequestException } from "../../exception/bad-request.exception.js";
 import bcryptConfig from "../../config/bcrypt.config.js";
-import { ConflictException } from "../../exceptions/conflic.exception.js";
+import { ConflictException } from "../../exception/conflic.exception.js";
 
 class UserController {
   #_userModel;
