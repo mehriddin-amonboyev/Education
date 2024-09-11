@@ -1,8 +1,7 @@
 import { config } from 'dotenv';
 import NodeCache from 'node-cache';
-import cookie from 'cookie-parser';
 import { hash, compare } from 'bcrypt';
-import { errorHandler } from '../helpers/errorHandle.js';
+import { errorHandler } from '../helpers/errorHandler.js';
 import { adminValidator } from '../helpers/validation.js'
 import { generateTokens } from '../utils/token.js';
 import { generateOTP } from '../utils/otp.js';
@@ -106,10 +105,10 @@ class AdminController {
                 message: "Admin signed in successfully",
                 token: tokens.access_token
             })
-        } catch(error) {
+        } catch (error) {
             errorHandler(error, res);
         }
     }
 }
 
-export default new AdminController;
+export default new AdminController();

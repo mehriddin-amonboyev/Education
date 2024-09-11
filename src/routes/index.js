@@ -8,6 +8,6 @@ const routes = Router();
 routes
     .use("/users", userRoutes)
     .use("/auth", authRoutes)
-    .use("/admin",adminRouter)
+    .use("/admin", adminRouter);
 
 export default routes;

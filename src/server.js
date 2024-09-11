@@ -5,8 +5,7 @@ import bodyParser from "body-parser";
 import { appConfig } from "./config/app.config.js";
 import { mongoDB } from "./mongo/mongo.js";
 import routes from "./routes/index.js";
-import pageRoutes from './routes/page.routes.js';
-import testRoutes from './tests/test.routes.js';
+import { ErrorHandlerMiddleware } from './middleware/error-handler.middleware.js';
 
 const app = express();
 
@@ -27,25 +26,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded.apply({ extends: true }));
 
 
-// app.use((req,res,next) => {
-//     req.salom = "assalom alaykum"
-
-//     next();
-// })
-
 //CONNECTING TO MONGODB DATABASE 
 mongoDB()
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.log("Xatolik >>>>>>>>\n", err.message));
 
-// PAGE ROUTES
-app.use("/api/v1/", pageRoutes);
-
-//Test routes
-app.use("/test", testRoutes);
-
 // Api ROUTES
-app.use("/", routes);
+app.use("/api/v1", routes);
 
 //Api All
 app.all("*", (req, res) => {
@@ -54,6 +41,8 @@ app.all("*", (req, res) => {
     });
 });
 
+// ERRORHANDLER MIDDLEWARE 
+app.use(ErrorHandlerMiddleware);
 
 //SEVER LISSENING PORT
 app.listen(appConfig.port, appConfig.host, () => {

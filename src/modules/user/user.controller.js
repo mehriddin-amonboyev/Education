@@ -86,7 +86,7 @@ class UserController {
 
   updateUser = async (req, res, next) => {
     try {
-      const { first_name, last_name, username, password, phone, birthDate } =
+      const { first_name, username, password, phone, birthDate } =
         req.body;
 
       let newPasswordHash = undefined;
