@@ -2,11 +2,6 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: [true, "First name berilishi shart⚠️"],
-      trim: true,
-    },
     username: {
       type: String,
       unique: true,
@@ -14,12 +9,12 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      unique: true,
+      unique: false,
       required: [true, "password berilishi shart!"],
     },
     phone: {
       type: String,
-      required: true,
+      required: false,
       minLength: [12, "Nomer 12 uzunlikda bo'lishi kerak"],
       maxLength: 12,
     },
@@ -32,12 +27,12 @@ const userSchema = new mongoose.Schema(
       enum: {
         values: ["student", "teacher", "admin", "super-admin"],
       },
-      required: true,
+      required: false,
       default: "student",
     },
     birthDate: {
       type: Date,
-      required: true,
+      required: false,
     },
     image_url: {
       type: String,

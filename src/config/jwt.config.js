@@ -1,8 +1,10 @@
-import {config} from 'dotenv';
+import { config } from 'dotenv';
 
 config();
 
-export const jwtConfig = {
+const jwtConfig = {
     secretKey: process.env.JWT_SECRET_KEY,
-    expireTime: process.env.JWT_EXPIRE_TIME,
+    expireTime: process.env.JWT_EXPIRE_TIME
 };
+
+export default jwtConfig;

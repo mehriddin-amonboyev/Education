@@ -2,6 +2,8 @@ import { config } from 'dotenv';
 
 config();
 
-export const mongoConfig = {
+const mongoConfig = {
     url: process.env.MONGO_URL + process.env.MONGO_DATABASE
 }
+
+export default mongoConfig;

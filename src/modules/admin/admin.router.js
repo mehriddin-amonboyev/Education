@@ -1,10 +1,11 @@
 import { Router } from "express";
+import adminController from "./admin.controller.js";
 
 const  adminRouter = Router();
 
 adminRouter
-    .post('/add', AdminController.addAdmin)
-    .post('/signin', AdminController.signin)
-    .post('/confirm-otp', AdminController.confirmOTP);
+    .post('/add', adminController.addAdmin)
+    .post('/signin', adminController.signin)
+    .post('/confirm-otp', adminController.confirmOTP);
 
 export default adminRouter;

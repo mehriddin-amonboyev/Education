@@ -1,8 +1,8 @@
 import { config } from 'dotenv';
 import NodeCache from 'node-cache';
 import { hash, compare } from 'bcrypt';
-import { errorHandler } from '../helpers/errorHandler.js';
-import { adminValidator } from '../helpers/validation.js'
+import { errorHandler } from '../../helper/errorHandler.js';
+// import { adminValidator } from '../helper/validation.js'
 import { generateTokens } from '../utils/token.js';
 import { generateOTP } from '../utils/otp.js';
 import { sendMail } from '../utils/mailer.js';
@@ -66,7 +66,7 @@ class AdminController {
 
             const mail_options = {
                 from: process.env.MAIL_FROM,
-                to: email,//dilshod7861@gmail.com
+                to: email,
                 subject: 'Emailga Tasdiqlash kod yuborildi',
                 html: `<h1 >${OTP}</h1>`
             };
@@ -111,4 +111,4 @@ class AdminController {
     }
 }
 
-export default new AdminController();
+export default new AdminController;

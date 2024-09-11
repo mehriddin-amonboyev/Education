@@ -9,8 +9,8 @@ import passwordResetConfig from "../../config/password-reset.config.js";
 import { Otp } from "./otp.model.js";
 import { sendMail } from "../../utils/send-email.utils.js";
 import { signToken } from "../../helper/jwt.helper.js";
-import { NotFoundException } from "../../exception/not-found.exception.js";
-import { ConflictException } from "../../exception/conflic.exception.js";
+import { NotFoundException } from "../../exceptions/not-found.exception.js";
+import { ConflictException } from "../../exceptions/conflic.exception.js";
 
 class AuthController {
   #_userModel;
@@ -52,13 +52,13 @@ class AuthController {
 
       switch (foundedUser.role) {
         case "student":
-          res.redirect("/student");
+          res.send("/student");
           break;
         case "teacher":
-          res.redirect("/teacher");
+          res.send("/teacher");
           break;
         case "admin":
-          res.redirect("/admin");
+          res.send("/admin");
           break;
         default:
           res.send("Not Faund:", { message: "User page not found" });

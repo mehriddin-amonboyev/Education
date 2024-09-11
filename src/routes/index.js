@@ -1,13 +1,13 @@
 import { Router } from "express";
-import userRoutes from "./user.routes.js";
-import authRoutes from "./auth.routes.js";
-import adminRouter from "../modules/admin/admin.router.js";
+import authRoutes from "../modules/auth/auth.routes.js";
+import userRoutes from "../modules/user/user.routes.js";
+// import adminRouter from "../modules/admin/admin.router.js";
 
 const routes = Router();
 
 routes
-    .use("/users", userRoutes)
     .use("/auth", authRoutes)
-    .use("/admin", adminRouter);
+    .use("/users", userRoutes)
+// .use("/admin", adminRouter);
 
 export default routes;

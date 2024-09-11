@@ -8,11 +8,7 @@ const sendDublicateFieldException = (err) => {
     }
 
     error.name = "Validation Error";
-    error.message = `Given value "${Object.values(error.keyValue).join(
-        " "
-    )}"for  "${Object.keys(error.keyValue).join(
-        " "
-    )}" is already axists.Try another one!`;
+    error.message = `Given value ${Object.values(error.keyValue).join(" ")} for ${Object.keys(error.keyValue).join(" ")} is already axists.Try another one!`;
     error.statusCode = 400;
     error.isException = true;
 
@@ -23,11 +19,7 @@ export const ErrorHandlerMiddleware = (err, _, res, __) => {
     err = sendDublicateFieldException(err);
 
     if (err.isException) {
-        logger.error(
-            `Exception(${err.name}): message: ${err.message}, 
-            status:${err.statusCode}, 
-            Time${new Date()}`
-        );
+        logger.error(`Exception(${err.name}): message: ${err.message}, status:${err.statusCode}, Time${new Date()}`);
 
         return res.status(err.statusCode).send({
             name: err.name,

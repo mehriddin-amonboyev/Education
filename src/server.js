@@ -2,8 +2,8 @@ import path from 'path';
 import morgan from "morgan";
 import express from "express";
 import bodyParser from "body-parser";
-import { appConfig } from "./config/app.config.js";
-import { mongoDB } from "./mongo/mongo.js";
+import appConfig from './config/app.config.js';
+import {mongoDB} from "./mongo/mongo.js";
 import routes from "./routes/index.js";
 import { ErrorHandlerMiddleware } from './middleware/error-handler.middleware.js';
 
@@ -15,7 +15,7 @@ app.use(morgan("tiny"));
 //SET VIEW ENGINE TO EJS
 app.set("view engine", "ejs");
 
-//SET EJS FILE PATH
+//SET EJS FILE PATH    
 app.set("views", path.join(process.cwd(), "src", "views"));
 
 //SERVER STATIC FILES IN PUBLIC DIRECTORY -> MIDDLEWARE
@@ -23,7 +23,7 @@ app.use("/public", express.static(path.join(process.cwd(), "public")));
 
 //BODY PARSING MIDDLIWARE
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded.apply({ extends: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //CONNECTING TO MONGODB DATABASE 
 mongoDB()
