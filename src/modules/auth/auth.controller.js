@@ -120,9 +120,8 @@ class AuthController {
       // SEND CODE VIA EMAIL
       await sendMail({
         to: email,
-        subject: "Verification code for Education",
-        html: `<h2>Sizning verifikatsiya kodingiz:</h2>
-        <input type="text" disabled value='${otpCode}'/>`,
+        subject: "Education uchun",
+        html: `<h2>Sizning verifikatsiya kodingiz: ${otpCode} </h2>/>`,
       });
 
       res.send({

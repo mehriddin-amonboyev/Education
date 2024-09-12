@@ -25,10 +25,10 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       enum: {
-        values: ["student", "teacher", "admin", "super-admin"],
+        values: ["student", "teacher", "admin", "super-admin", "user"],
       },
       required: false,
-      default: "student",
+      default: "user",
     },
     birthDate: {
       type: Date,
@@ -43,13 +43,7 @@ const userSchema = new mongoose.Schema(
     },
     passwordResetTokenExpireTime: {
       type: Date,
-    },
-    groups: [
-      {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: "Group",
-      },
-    ],
+    }
   },
   {
     collection: "users",

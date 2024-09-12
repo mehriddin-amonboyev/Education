@@ -1,4 +1,4 @@
-import {Schema, model} from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 const TestSchema = new Schema({
     matni: {
@@ -32,7 +32,7 @@ const TestSchema = new Schema({
     },
     correct_answer: {
         type: String,
-        enum: ['A', 'B', 'C', 'D'], // To'g'ri javobni tanlash uchun
+        enum: ['A', 'B', 'C', 'D'], 
         required: true
     }
 });

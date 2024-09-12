@@ -14,7 +14,6 @@ class TestController {
             await this.#_testModel.create({
                 ...req.body,
             });
-            console.log(req.body)
             res.status(201).send({
                 message: "Test muvaffaqiyatli qo'shildi",
             });
@@ -40,7 +39,7 @@ class TestController {
     // READ: ID bo'yicha testni olish
     getTestById = async (req, res) => {
         try {
-            const test = await this.#_testModel.findById(req.params.id); // Use req.params.id
+            const test = await this.#_testModel.findById(req.params.id);
 
             if (test) {
                 res.status(200).send({

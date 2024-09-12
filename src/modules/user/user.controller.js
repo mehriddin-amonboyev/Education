@@ -1,9 +1,9 @@
-import { isValidObjectId } from "mongoose";
 import bcrypt from "bcrypt";
+import { isValidObjectId } from "mongoose";
 import User from "./user.model.js";
 import ApiFeature from "../../utils/api-feature.utils.js";
-import { BadRequestException } from "../../exceptions/bad-request.exception.js";
 import bcryptConfig from "../../config/bcrypt.config.js";
+import { BadRequestException } from "../../exceptions/bad-request.exception.js";
 import { ConflictException } from "../../exceptions/conflic.exception.js";
 
 class UserController {
@@ -17,9 +17,9 @@ class UserController {
     try {
       const query = { ...req.query };
 
-      console.log(req.cookies, "oddiy cookies");
+      // console.log(req.cookies, "oddiy cookies");
 
-      console.log(req.signedCookies, "secret cookies");
+      // console.log(req.signedCookies, "secret cookies");
 
       // GET ALL FILTERED PRODUCTS COUNT
       const allResultsCount = await new ApiFeature(
@@ -42,7 +42,6 @@ class UserController {
         .limitFields()
         .paginate()
         .getQuery()
-        .populate("groups")
         .select("-password");
 
       res.send({
@@ -86,7 +85,7 @@ class UserController {
 
   updateUser = async (req, res, next) => {
     try {
-      const { first_name, last_name, username, password, phone, birthDate } =
+      const { username, password, phone, birthDate, image_url } =
         req.body;
 
       let newPasswordHash = undefined;
@@ -95,18 +94,17 @@ class UserController {
         newPasswordHash = await bcrypt.hash(req.body.password, bcryptConfig.rounds);
       }
 
-      const { userId } = req.params;
+      const { id } = req.params;
 
-      // check userid
-      this.#_checkObjectId(userId);
+      // check id
+      this.#_checkObjectId(id);
 
-      await this.#_userModel.findByIdAndUpdate(userId, {
-        first_name,
-        last_name,
-        password: newPasswordHash,
+      await this.#_userModel.findByIdAndUpdate(id, {
         username,
+        password: newPasswordHash,
         phone,
         birthDate,
+        image_url,
       });
 
       res.status(204).send();
@@ -115,17 +113,36 @@ class UserController {
     }
   };
 
+  updateUserRole = async (req, res, next) => {
+    try {
+      const { role } = req.body;
+      const { id } = req.params;
+
+      // check id
+      this.#_checkObjectId(id);
+
+      await this.#_userModel.findOneAndUpdate({ _id: id }, { role });
+
+      res.status(204).send({
+        message: "User roli muvaffaqqiyatli o'zgartirildi!!"
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+
   deleteUser = async (req, res, next) => {
     try {
-      const { userId } = req.params;
+      const { id } = req.params;
 
-      // check userid
-      this.#_checkObjectId(userId);
+      // check id
+      this.#_checkObjectId(id);
 
-      await this.#_userModel.findByIdAndDelete(userId);
+      await this.#_userModel.findByIdAndDelete(id);
 
-      res.send({
-        message: "successfully deleted",
+      res.status(204).send({
+        message: "User muvaffaqqiyatli o'chirildi!!",
       });
     } catch (error) {
       next(error);

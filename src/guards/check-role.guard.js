@@ -1,6 +1,6 @@
-import { ConflictException } from "../exception/conflic.exception.js";
+import { ConflictException } from "../exceptions/conflic.exception.js";
 
-export const CkeckRolesGuard = (...roles) => {
+export const CheckRolesGuard = (...roles) => {
     return (req, _, next)=>{
         if(!roles.length){
             return next();

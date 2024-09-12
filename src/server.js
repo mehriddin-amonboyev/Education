@@ -43,7 +43,7 @@ app.all("*", (req, res) => {
 });
 
 // ERRORHANDLER MIDDLEWARE 
-// app.use(ErrorHandlerMiddleware);
+app.use(ErrorHandlerMiddleware);
 
 //SEVER LISSENING PORT
 app.listen(appConfig.port, appConfig.host, () => {
