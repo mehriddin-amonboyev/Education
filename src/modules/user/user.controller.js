@@ -92,7 +92,7 @@ class UserController {
       let newPasswordHash = undefined;
 
       if (password) {
-        newPasswordHash = await bcrypt.hash(req.body.password, 12);
+        newPasswordHash = await bcrypt.hash(req.body.password, bcryptConfig.rounds);
       }
 
       const { userId } = req.params;

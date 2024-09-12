@@ -172,7 +172,7 @@ class AuthController {
 
       const randomText = crypto.randomBytes(32).toString("hex");
 
-      const passwordResetUrl = `${req.protocol}://${req.host}:${appConfig.port}/reset-password/${randomText}`;
+      const passwordResetUrl = `${req.protocol}://${req.host}:${appConfig.port}/api/v1/auth/reset-password/${randomText}`;
 
       await sendMail({
         html: `<a href="${passwordResetUrl}">Click here</a>`,
@@ -187,7 +187,7 @@ class AuthController {
       });
 
       res.send(passwordResetUrl);
-      
+
     } catch (error) {
       next(error);
     }

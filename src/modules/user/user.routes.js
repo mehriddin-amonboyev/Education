@@ -7,9 +7,6 @@ import { createUserSchema } from './dtos/user-create.dto.js';
 const userRoutes = Router();
 
 userRoutes
-//   .post("/", CheckAuthGuard(false),
-//     ValidationMiddleware(createUserSchema), userController.createUser
-//   )
 //   .get(
 //     "/",
 //     CheckAuthGuard(false),
