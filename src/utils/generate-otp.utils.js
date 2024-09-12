@@ -1,11 +1,13 @@
-import OtpGenerator from "otp-generator";
+import {generate} from 'otp-generator';
 
-const generateOTP = () => {
-  return OtpGenerator.generate(6, {
-    lowerCaseAlphabets: false,
-    specialChars: false,
-    upperCaseAlphabets: false,
-  });
-};
-
-export default generateOTP;
+export const generateOTP = () => {
+    try{
+        return generate(6, {
+            upperCaseAlphabets: false,
+            lowerCaseAlphabets: false,
+            specialChars: false
+        });
+    }catch{
+        console.log(`Error on generate OTP: ${error}`);
+    }
+}

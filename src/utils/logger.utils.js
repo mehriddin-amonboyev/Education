@@ -7,16 +7,16 @@ const logger = winston.createLogger({
         winston.format.json({ space: 4 })),
     transports: [
         new winston.transports.File({
-            filename: "./logs/error-logs.json",
-            level: "error"
+            level: "error",
+            filename: "./logs/error-logs.json"
         }),
         new winston.transports.File({
-            filename: "./logs/warn-logs.json",
-            level: "warn"
+            level: "warn",
+            filename: "./logs/warn-logs.json"
         }),
         new winston.transports.File({
+            level: "info",
             filename: "./logs/info-logs.json",
-            level: "info"
         }),
         new winston.transports.File({
             filename: "./logs/combined-logs.json"

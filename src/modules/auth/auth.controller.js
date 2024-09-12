@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import User from "../user/user.model.js";
 import appConfig from "../../config/app.config.js";
 import bcryptConfig from "../../config/bcrypt.config.js";
-import generateOTP from "../../utils/generate-otp.utils.js";
+import {generateOTP} from "../../utils/generate-otp.utils.js";
 import passwordResetConfig from "../../config/password-reset.config.js";
 import { Otp } from "./otp.model.js";
 import { sendMail } from "../../utils/send-email.utils.js";
@@ -20,6 +20,36 @@ class AuthController {
     this.#_userModel = User;
     this.#_otpModel = Otp;
   }
+
+  // REGISTER
+  signup = async (req, res, next) => {
+    try {
+      const { username, email, password } = req.body;
+      
+      const existingUser = await User.findOne({ username });
+      if (existingUser) {
+        throw new ConflictException("Bu username afsuski band!!!")
+      }
+
+      const existingEmail = await User.findOne({ email });
+      if (existingEmail) {
+        throw new ConflictException("Bu email afsuski band!!!")
+      }
+
+      const hashed_password = await bcrypt.hash(password, bcryptConfig.rounds);
+
+      const newUser = await User.create({
+        username,
+        email,
+        password: hashed_password,
+        role: "student",
+      });
+
+      res.status(201).send("Foydalanuvchi muvaffaqqiyatli ro'yxatdan o'tdi!!!");
+    } catch (error) {
+      next(error)
+    };
+  };
 
   // LOGIN
   signin = async (req, res, next) => {
@@ -50,19 +80,24 @@ class AuthController {
 
       res.cookie("token", accessToken, { maxAge: 1000 * 60 * 6, signed: true });
 
-      switch (foundedUser.role) {
-        case "student":
-          res.send("/student");
-          break;
-        case "teacher":
-          res.send("/teacher");
-          break;
-        case "admin":
-          res.send("/admin");
-          break;
-        default:
-          res.send("Not Faund:", { message: "User page not found" });
-      }
+      res.send({
+          message: "success",
+          token: accessToken,
+        });
+
+      // switch (foundedUser.role) {
+      //   case "student":
+      //     res.send("/student");
+      //     break;
+      //   case "teacher":
+      //     res.send("/teacher");
+      //     break;
+      //   case "admin":
+      //     res.send("/admin");
+      //     break;
+      //   default:
+      //     res.send("Not Faund:", { message: "User page not found" });
+      // }
     } catch (error) {
       next(error);
     }
@@ -92,6 +127,7 @@ class AuthController {
 
       res.send({
         verifyText,
+        otpCode,
       });
     } catch (error) {
       next(error);
@@ -118,39 +154,6 @@ class AuthController {
         },
         success: true,
       });
-    } catch (error) {
-      next(error);
-    }
-  };
-
-  // Reset Password
-  resetPassword = async (req, res, next) => {
-    try {
-      const { password } = req.body;
-
-      const token = req.params.token;
-
-      const foundedUser = await this.#_userModel.findOne({
-        passwordResetToken: token,
-      });
-
-      if (!foundedUser) {
-        throw new NotFoundException("User not found");
-      }
-
-      if (foundedUser.passwordResetTokenExpireTime - Date.now() < 0) {
-        throw new ConflictException("Password reset time already expired");
-      }
-
-      const hashedPass = await bcrypt.hash(password, bcryptConfig.rounds);
-
-      await this.#_userModel.findByIdAndUpdate(foundedUser.id, {
-        password: hashedPass,
-        passwordResetToken: null,
-        passwordResetTokenExpireTime: null,
-      });
-
-      res.redirect("/");
     } catch (error) {
       next(error);
     }
@@ -183,17 +186,44 @@ class AuthController {
           Date.now() + Number(passwordResetConfig.expireTime) * 1000,
       });
 
-      res.render("forgot-password", {
-        text: "Send reset password link to your email! Check out❗",
-      });
+      res.send(passwordResetUrl);
+      
     } catch (error) {
       next(error);
     }
   };
 
-  // REGISTER
-  signup = async (req, res) => {
-    res.send("ok");
+  // Reset Password
+  resetPassword = async (req, res, next) => {
+    try {
+      const { password } = req.body;
+
+      const token = req.params.token;
+
+      const foundedUser = await this.#_userModel.findOne({
+        passwordResetToken: token,
+      });
+
+      if (!foundedUser) {
+        throw new NotFoundException("User not found");
+      }
+
+      if (foundedUser.passwordResetTokenExpireTime - Date.now() < 0) {
+        throw new ConflictException("Password reset time already expired");
+      }
+
+      const hashedPass = await bcrypt.hash(password, bcryptConfig.rounds);
+
+      await this.#_userModel.findByIdAndUpdate(foundedUser.id, {
+        password: hashedPass,
+        passwordResetToken: null,
+        passwordResetTokenExpireTime: null,
+      });
+
+      res.send("Muvaffaqqiyatli o'zgartirildi");
+    } catch (error) {
+      next(error);
+    }
   };
 }
 

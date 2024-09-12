@@ -6,12 +6,14 @@ import appConfig from './config/app.config.js';
 import {mongoDB} from "./mongo/mongo.js";
 import routes from "./routes/index.js";
 import { ErrorHandlerMiddleware } from './middleware/error-handler.middleware.js';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
 //MORGAN MIDDLEWARE
 app.use(morgan("tiny"));
 
+app.use(cookieParser("Amonboyev"))
 //SET VIEW ENGINE TO EJS
 app.set("view engine", "ejs");
 
@@ -41,7 +43,7 @@ app.all("*", (req, res) => {
 });
 
 // ERRORHANDLER MIDDLEWARE 
-app.use(ErrorHandlerMiddleware);
+// app.use(ErrorHandlerMiddleware);
 
 //SEVER LISSENING PORT
 app.listen(appConfig.port, appConfig.host, () => {
