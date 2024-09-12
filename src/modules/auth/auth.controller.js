@@ -125,8 +125,9 @@ class AuthController {
       });
 
       res.send({
+        email,
         verifyText,
-        otpCode,
+        code,
       });
     } catch (error) {
       next(error);

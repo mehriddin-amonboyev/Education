@@ -12,7 +12,7 @@ const otpSchema = new mongoose.Schema(
     },
     verifyText: {
       type: String,
-      unique: [true, "Verfication text must be unique"],
+      unique: [true, "Verfication text unique bo'lishi kerak"],
     },
     expire_at: {
       type: Date,
@@ -26,4 +26,4 @@ const otpSchema = new mongoose.Schema(
   }
 );
 
-export const Otp = mongoose.model("OTP", otpSchema);
+export const Otp = mongoose.model("Otp", otpSchema);
