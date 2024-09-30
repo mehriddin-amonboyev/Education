@@ -9,3 +9,9 @@ masala {
     matn: 
     ball:
 }
+
+
+darslarni yuklash 
+darslarni olish
+test ishlash 
+reyting hisoblash

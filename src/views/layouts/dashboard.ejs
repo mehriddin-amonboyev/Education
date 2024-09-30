@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education</title>
+    <link rel="stylesheet" href="/public/styles/dashboard.css">
+</head>
+<body>
+    <header class="header">
+        <a class="logo" href="/">Education Math</a>
+        <div class="login">
+            <a href="/login" class="login-btn">Kirish</a>
+        </div>
+    </header>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <ul>
+                <li><a href="/" data-section="home">🏠 Bosh sahifa</a></li>
+                <li><a href="/courses" data-section="courses">📚 Kurslar</a></li>
+            </ul>
+        </aside>
+        <main class="main-content" id="content">
+            <%- include('sections/' + body) %>
+        </main>
+    </div>
+    <script src="/public/js/dashboard.js"></script>
+</body>
+</html>

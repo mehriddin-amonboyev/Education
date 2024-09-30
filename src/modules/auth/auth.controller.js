@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import User from "../user/user.model.js";
 import appConfig from "../../config/app.config.js";
 import bcryptConfig from "../../config/bcrypt.config.js";
-import {generateOTP} from "../../utils/generate-otp.utils.js";
+import { generateOTP } from "../../utils/generate-otp.utils.js";
 import passwordResetConfig from "../../config/password-reset.config.js";
 import { Otp } from "./otp.model.js";
 import { sendMail } from "../../utils/send-email.utils.js";
@@ -25,7 +25,7 @@ class AuthController {
   signup = async (req, res, next) => {
     try {
       const { username, email, password } = req.body;
-      
+
       const existingUser = await User.findOne({ username });
       if (existingUser) {
         throw new ConflictException("Bu username afsuski band!!!")
@@ -79,25 +79,21 @@ class AuthController {
       });
 
       res.cookie("token", accessToken, { maxAge: 1000 * 60 * 6, signed: true });
-
-      res.send({
-          message: "success",
-          token: accessToken,
-        });
-
-      // switch (foundedUser.role) {
-      //   case "student":
-      //     res.send("/student");
-      //     break;
-      //   case "teacher":
-      //     res.send("/teacher");
-      //     break;
-      //   case "admin":
-      //     res.send("/admin");
-      //     break;
-      //   default:
-      //     res.send("Not Faund:", { message: "User page not found" });
-      // }
+      
+      const user = foundedUser ;
+      switch (foundedUser.role) {
+        case "student":
+          res.render("dashboard",{ user });
+          break;
+        case "teacher":
+          res.render("teacher");
+          break;
+        // case "admin":
+        // res.render("/admin");
+        //   break;
+        default:
+          res.send("Not Faund:", { message: "User page not found" });
+      }
     } catch (error) {
       next(error);
     }

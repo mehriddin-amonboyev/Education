@@ -25,10 +25,14 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       enum: {
-        values: ["student", "teacher", "admin", "super-admin", "user"],
+        values: ["student", "teacher", "user"],
       },
       required: false,
       default: "user",
+    },
+    rating:{
+      type: Number,
+      default: 0
     },
     birthDate: {
       type: Date,

@@ -15,19 +15,22 @@ userRoutes
     CheckRolesGuard(),
     userController.getAllUsers
   )
+
   .patch(
     "/role/:id",
     CheckAuthGuard(true),
     CheckRolesGuard("super-admin", "admin"),
     ValidationMiddleware(UpdateRoleSchema),
     userController.updateUserRole
-    )
-    .patch(
-      "/:id",
-      ValidationMiddleware(updateUserSchema),
-      userController.updateUser
-    )
-    .delete(
+  )
+
+  .patch(
+    "/:id",
+    ValidationMiddleware(updateUserSchema),
+    userController.updateUser
+  )
+
+  .delete(
     "/:id",
     CheckAuthGuard(true),
     CheckRolesGuard("super-admin", "admin"),
